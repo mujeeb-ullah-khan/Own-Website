@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal Profile</title>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --text-light: #7f8c8d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f5f5f5;
+        }
+        
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+        
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--dark-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav li {
+            padding: 1rem;
+        }
+        
+        nav a {
+            color: white;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Main Content */
+        main {
+            padding: 2rem 0;
+        }
+        
+        section {
+            margin-bottom: 3rem;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        /* About Section */
+        .about p {
+            margin-bottom: 1rem;
+        }
+        
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .skill-category {
+            background-color: var(--light-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+        
+        .skill-item {
+            margin-bottom: 0.5rem;
+        }
+        
+        .skill-name {
+            font-weight: 500;
+        }
+        
+        /* Experience Section */
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -40px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            border: 3px solid var(--primary-color);
+        }
+        
+        .timeline-date {
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Contact Section */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-card {
+            background-color: var(--light-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .contact-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        /* Contact Form Styles */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--light-color);
+            border-radius: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .error-message {
+            color: var(--accent-color);
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        .success-message {
+            color: #27ae60;
+            margin-top: 1rem;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        button[type="submit"] {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        
+        .social-links {
+            margin: 1rem 0;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        
+/* To-Do List Styles */
+#todo {
+    margin-top: 3rem;
+}
+.todo-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+#taskInput {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+#addBtn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+#addBtn:hover {
+    background-color: #2980b9;
+}
+.todo-list li {
+    background: var(--light-color);
+    margin-bottom: 10px;
+    padding: 12px;
+    border-left: 4px solid var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.todo-list li.completed {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+.todo-list button {
+    background-color: var(--accent-color);
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+.todo-list button:hover {
+    background-color: #c0392b;
+}
+
+
+/* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .skills-container, .contact-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <img src="logo muk.webp" alt="Profile Picture" class="profile-image">
+            <h1>Mujeeb Ullah Khan</h1>
+            <p>Web Developer & UI/UX Designer</p>
+        </div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="container">
+        <!-- About Section -->
+        <section id="about" class="about">
+            <h2>About Me</h2>
+            <p>Hello! I'm Mujeeb Ullah Khan, a passionate web developer with over 2 years of experience in creating responsive and user-friendly websites. I specialize in front-end development but also have strong back-end skills.</p>
+            <p>My approach combines technical expertise with creative problem-solving to deliver high-quality digital experiences. I'm constantly learning new technologies and methodologies to stay at the forefront of web development.</p>
+            <p>When I'm not coding, you can find me hiking, reading science fiction, or experimenting with new recipes in the kitchen.</p>
+        </section>
+        
+        <!-- Skills Section -->
+        <section id="skills" class="skills">
+            <h2>Skills</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>Front-end</h3>
+                    <div class="skill-item">
+                        <span class="skill-name">HTML5/CSS3</span>
+                        <div class="skill-level">★★★★★</div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">JavaScript</span>
+                        <div class="skill-level">★★★★☆</div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">React</span>
+                        <div class="skill-level">★★★★☆</div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">Vue.js</span>
+                        <div class="skill-level">★★★☆☆</div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Back-end</h3>
+                    <div class="skill-item">
+                        <span class="skill-name">Node.js</span>
+                        <div class="skill-level">★★★★☆</div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">Python</span>
+                        <div class="skill-level">★★★☆☆</div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">PHP</span>
+                        <div class="skill-level">★★★☆☆</div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">MySQL</span>
+                        <div class="skill-level">★★★★☆</div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Tools & Other</h3>
+                    <div class="skill-item">
+                        <span class="skill-name">Git</span>
+                        <div class="skill-level">★★★★☆</div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">Figma</span>
+                        <div class="skill-level">★★★☆☆</div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">Docker</span>
+                        <div class="skill-level">★★☆☆☆</div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">AWS</span>
+                        <div class="skill-level">★★☆☆☆</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Experience Section -->
+        <section id="experience" class="experience">
+            <h2>Work Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Web Developer</h3>
+                    <p class="timeline-date">January 2023 - Present</p>
+                    <p>Tech Solutions Inc.</p>
+                    <ul>
+                        <li>Lead a team of 5 developers in creating responsive web applications</li>
+                        <li>Implemented new React-based frontend architecture</li>
+                        <li>Improved website performance by 40% through optimization</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3>Web Developer</h3>
+                    <p class="timeline-date">June 2023 - December 2024</p>
+                    <p>Digital Creations Agency</p>
+                    <ul>
+                        <li>Developed and maintained client websites using WordPress and custom solutions</li>
+                        <li>Collaborated with designers to implement UI/UX best practices</li>
+                        <li>Created custom plugins and themes for WordPress</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3>Junior Developer</h3>
+                    <p class="timeline-date">August 2023 - May 2025</p>
+                    <p>WebStart Solutions</p>
+                    <ul>
+                        <li>Assisted in development of e-commerce websites</li>
+                        <li>Fixed bugs and implemented small features</li>
+                        <li>Learned industry best practices and workflows</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Education Section -->
+        <section id="education" class="education">
+            <h2>Education</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Bachelor in Information System</h3>
+                    <p class="timeline-date">2023 - Present</p>
+                    <p> UIN</p>
+                    <p>Specialized in Web Technologies and Human-Computer Interaction</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3>Higher Secondary School</h3>
+                    <p class="timeline-date">2018 - 2020</p>
+                    <p>City College</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+<section id="contact" class="contact">
+    <h2>Contact Me</h2>
+    <div class="contact-info">
+        <div class="contact-card">
+            <i class="fas fa-envelope"></i>
+            <h3>Email</h3>
+            <p>kmehrankhan757@gmail.com</p>
+        </div>
+        
+        <div class="contact-card">
+            <i class="fas fa-phone"></i>
+            <h3>Phone</h3>
+            <p>+92 3346276757</p>
+        </div>
+        
+        <div class="contact-card">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3>Location</h3>
+            <p>Bandar Lampung Indonesia</p>
+        </div>
+    </div>
+
+    <!-- Add this heading above the form -->
+    <h3 style="text-align: center; margin: 30px 0 20px; color: var(--primary-color);">CONTACT FORM</h3>
+    
+    <!-- Contact Form -->
+    <form id="contactForm" class="contact-form">
+        <div class="form-group">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
+            <span class="error-message" id="nameError"></span>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required>
+            <span class="error-message" id="emailError"></span>
+        </div>
+        
+        <div class="form-group">
+            <label for="message">Your Message:</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+            <span class="error-message" id="messageError"></span>
+        </div>
+        
+        <button type="submit">Send Message</button>
+        <div id="formSuccess" class="success-message"></div>
+    </form>
+</section>
+    
+<!-- To-Do List Section -->
+<section id="todo">
+    <h2>📝 My To-Do List</h2>
+    <div class="todo-container">
+        <input type="text" id="taskInput" placeholder="Enter a new task...">
+        <button id="addBtn" onclick="addTask()">➕ Add Task</button>
+    </div>
+    <ul id="taskList" class="todo-list"></ul>
+</section>
+
+</main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-codepen"></i></a>
+            </div>
+            <p>&copy; 2025 MUK. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Reset previous errors and success message
+            document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+            document.getElementById('formSuccess').style.display = 'none';
+            
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            let isValid = true;
+            
+            // Name validation
+            if (name === '') {
+                document.getElementById('nameError').textContent = 'Name is required';
+                document.getElementById('nameError').style.display = 'block';
+                isValid = false;
+            } else if (name.length < 2) {
+                document.getElementById('nameError').textContent = 'Name must be at least 2 characters';
+                document.getElementById('nameError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Email validation
+            if (email === '') {
+                document.getElementById('emailError').textContent = 'Email is required';
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            } else if (!isValidEmail(email)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email address';
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Message validation
+            if (message === '') {
+                document.getElementById('messageError').textContent = 'Message is required';
+                document.getElementById('messageError').style.display = 'block';
+                isValid = false;
+            } else if (message.length < 10) {
+                document.getElementById('messageError').textContent = 'Message must be at least 10 characters';
+                document.getElementById('messageError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // If valid, show success message
+            if (isValid) {
+                document.getElementById('formSuccess').textContent = 'Thank you for your message! I will get back to you soon.';
+                document.getElementById('formSuccess').style.display = 'block';
+                document.getElementById('contactForm').reset();
+                
+                // In a real implementation, you would send the form data to a server here
+                // Example: fetch('/api/contact', { method: 'POST', body: new FormData(this) })
+            }
+        });
+        
+        // Email validation helper function
+        function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+    </script>
+
+<script>
+    // Load tasks from localStorage
+    window.onload = function () {
+        const saved = localStorage.getItem("tasks");
+        if (saved) {
+            document.getElementById("taskList").innerHTML = saved;
+            reattachEventListeners();
+        }
+    };
+
+    function addTask() {
+        const input = document.getElementById("taskInput");
+        const taskText = input.value.trim();
+        if (taskText !== "") {
+            const li = document.createElement("li");
+            li.innerHTML = `
+                <span class="task-text">${taskText}</span>
+                <div>
+                    <button onclick="toggleComplete(this)">✔</button>
+                    <button onclick="deleteTask(this)">🗑</button>
+                </div>
+            `;
+            document.getElementById("taskList").appendChild(li);
+            input.value = "";
+            saveTasks();
+        }
+    }
+
+    function toggleComplete(button) {
+        const li = button.closest("li");
+        li.classList.toggle("completed");
+        saveTasks();
+    }
+
+    function deleteTask(button) {
+        const li = button.closest("li");
+        li.remove();
+        saveTasks();
+    }
+
+    function saveTasks() {
+        localStorage.setItem("tasks", document.getElementById("taskList").innerHTML);
+    }
+
+    function reattachEventListeners() {
+        document.querySelectorAll(".todo-list button").forEach(btn => {
+            if (btn.textContent === "✔") {
+                btn.setAttribute("onclick", "toggleComplete(this)");
+            } else if (btn.textContent === "🗑") {
+                btn.setAttribute("onclick", "deleteTask(this)");
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
